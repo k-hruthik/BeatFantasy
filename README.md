@@ -1,29 +1,29 @@
-# Conversion of user_teams.pdf to Database Table
+# Converting Data from PDF to CSV and Inserting into MySQL Table
 
-This project involves extracting data from `user_teams.pdf`, creating a database table named `user_teams`, and inserting the extracted data into this table.
-
-## Steps:
-
-### 1. Extract Data from user_teams.pdf
-
-Use `extractor.py` to extract data from `user_teams.pdf`. Ensure Python and necessary libraries (like `pdfplumber`) are installed and configured.
-
-```bash
-python extractor.py
-# Conversion of user_teams.pdf to Database Table
-
-This project involves extracting data from `user_teams.pdf`, creating a database table named `user_teams`, and inserting the extracted data into this table.
+This guide explains how to convert data from a PDF file into a CSV file and then insert it into a MySQL table.
 
 ## Steps:
 
-### 2. Create Database Table
+### 1. Extract Data from PDF
 
-Create a MySQL database table named `user_teams` with appropriate columns to store the extracted data. Here's an example `CREATE TABLE` SQL statement:
+Use a Python script (`extractor.py`) to extract data from the PDF file (`user_teams.pdf`). Ensure Python and necessary libraries (like `pdfplumber`) are installed.
 
-```sql
-CREATE TABLE user_teams (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    column1 VARCHAR(255),
-    column2 VARCHAR(255),
-    ...  -- Define columns based on extracted data structure
-);
+#### Python Script: `extractor.py`
+
+```python
+import pdfplumber
+import csv
+
+pdf_path = 'user_teams.pdf'
+csv_path = 'output.csv'
+
+with pdfplumber.open(pdf_path) as pdf:
+    with open(csv_path, 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        for page in pdf.pages:
+            table = page.extract_table()
+            if table:
+                for row in table:
+                    csvwriter.writerow(row)
+
+print(f'Data extracted to {csv_path}')
