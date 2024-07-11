@@ -27,3 +27,25 @@ with pdfplumber.open(pdf_path) as pdf:
                     csvwriter.writerow(row)
 
 print(f'Data extracted to {csv_path}')
+### 2. Create MySQL Database Table
+
+Create a MySQL database table named `user_teams` with appropriate columns to store the extracted data.
+
+#### Example `CREATE TABLE` SQL Statement
+
+```sql
+CREATE TABLE user_teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    column1 VARCHAR(255),
+    column2 VARCHAR(255),
+    column3 VARCHAR(255),
+    column4 VARCHAR(255),
+    column5 VARCHAR(255),
+    column6 VARCHAR(255),
+    column7 VARCHAR(255),
+    column8 VARCHAR(255),
+    column9 VARCHAR(255),
+    column10 VARCHAR(255),
+    column11 VARCHAR(255)
+);
+
